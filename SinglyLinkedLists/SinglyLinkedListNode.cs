@@ -15,14 +15,31 @@ namespace SinglyLinkedLists
         private SinglyLinkedListNode next;
         public SinglyLinkedListNode Next
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get
+            {
+                return next;
+            }
+            set
+            {
+                if (this == value)
+                {
+                    throw new ArgumentException();
+                }
+                next = value;
+            }
         }
 
         private string value;
         public string Value 
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return value;
+            }
+            set
+            {
+                this.value = value;
+            }
         }
 
         public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
@@ -37,10 +54,14 @@ namespace SinglyLinkedLists
             return node1.CompareTo(node2) > 0;
         }
 
+        public override string ToString()
+        {
+            return value;
+        }
+
         public SinglyLinkedListNode(string value)
         {
-            throw new NotImplementedException();
-
+            this.value = value;
             // Used by the visualizer:
             allNodes.Add(this);
         }
@@ -48,12 +69,49 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
         public int CompareTo(Object obj)
         {
-            throw new NotImplementedException();
+            if (obj == null)
+            {
+                return 1;
+            }
+            SinglyLinkedListNode newNode = obj as SinglyLinkedListNode;
+            if (newNode != null)
+            {
+                return this.value.CompareTo(newNode.value);
+            }
+            else
+            {
+                throw new ArgumentException("object is not a node");
+            }
         }
 
         public bool IsLast()
         {
-            throw new NotImplementedException();
+            if (next == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            SinglyLinkedListNode newNode = obj as SinglyLinkedListNode;
+            if (newNode == null)
+            {
+                return false;
+            }
+            else if (newNode.Value == value)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
         }
     }
 }
